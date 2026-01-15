@@ -55,10 +55,12 @@ type UploadResponse struct {
 	FileKey       string   `json:"file_key"`
 	UploadID      string   `json:"upload_id"`
 	PresignedURLs []string `json:"presigned_urls"`
+	ObjectName    string   `json:"object_name,omitempty"`
 	// CamelCase aliases for compatibility
 	FileKeyAlias       string   `json:"fileKey,omitempty"`
 	UploadIDAlias      string   `json:"uploadId,omitempty"`
 	PresignedURLsAlias []string `json:"presignedUrls,omitempty"`
+	ObjectNameAlias    string   `json:"objectName,omitempty"`
 }
 
 // SupportedOperationOptions represents options for checking supported operations
@@ -207,6 +209,7 @@ func (c *Client) UploadFile(options UploadFileOptions) (*UploadResponse, error) 
 			FileKey       string   `json:"file_key"`
 			UploadID      string   `json:"upload_id"`
 			PresignedURLs []string `json:"presigned_urls"`
+			ObjectName    string   `json:"object_name"`
 		} `json:"data"`
 	}
 
@@ -227,6 +230,7 @@ func (c *Client) UploadFile(options UploadFileOptions) (*UploadResponse, error) 
 	fileKey := uploadResp.Data.FileKey
 	uploadID := uploadResp.Data.UploadID
 	presignedURLs := uploadResp.Data.PresignedURLs
+	objectName := uploadResp.Data.ObjectName
 
 	if len(presignedURLs) != calculatedParts {
 		return nil, fmt.Errorf("mismatch: requested %d parts but received %d presigned URLs", calculatedParts, len(presignedURLs))
@@ -321,6 +325,7 @@ func (c *Client) UploadFile(options UploadFileOptions) (*UploadResponse, error) 
 		SetBody(map[string]interface{}{
 			"file_key":  fileKey,
 			"upload_id": uploadID,
+			"object_name": objectName,
 			"parts":     uploadParts,
 		}).
 		SetResult(&completeResp).
@@ -334,9 +339,11 @@ func (c *Client) UploadFile(options UploadFileOptions) (*UploadResponse, error) 
 		FileKey:       fileKey,
 		UploadID:      uploadID,
 		PresignedURLs: presignedURLs,
+		ObjectName:    objectName,
 		FileKeyAlias:  fileKey,
 		UploadIDAlias: uploadID,
 		PresignedURLsAlias: presignedURLs,
+		ObjectNameAlias:    objectName,
 	}, nil
 }
 
