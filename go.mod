@@ -1,4 +1,4 @@
-module github.com/d3/d3-go-client
+module github.com/d3/dragdropdo-sdk-go
 
 go 1.19
 

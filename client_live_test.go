@@ -32,7 +32,7 @@ func TestClient_LiveAPI_UploadConvertPollDownload(t *testing.T) {
 	}
 
 	// Create client
-	client, err := NewClient(Config{
+	client, err := NewDragdropdo(Config{
 		APIKey:  apiKey,
 		BaseURL: apiBase,
 		Timeout: 120 * time.Second,

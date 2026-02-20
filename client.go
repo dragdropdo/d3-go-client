@@ -15,8 +15,8 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-// Client represents a D3 API client
-type Client struct {
+// Dragdropdo represents a D3 API client
+type Dragdropdo struct {
 	apiKey   string
 	baseURL  string
 	timeout  time.Duration
@@ -126,8 +126,8 @@ type PollStatusOptions struct {
 	OnUpdate func(StatusResponse)
 }
 
-// NewClient creates a new D3 Client instance
-func NewClient(config Config) (*Client, error) {
+// NewDragdropdo creates a new Dragdropdo Client instance
+func NewDragdropdo(config Config) (*Dragdropdo, error) {
 	if config.APIKey == "" {
 		return nil, errors.New("API key is required")
 	}
@@ -156,7 +156,7 @@ func NewClient(config Config) (*Client, error) {
 		SetTimeout(timeout).
 		SetHeaders(headers)
 
-	return &Client{
+	return &Dragdropdo{
 		apiKey:     config.APIKey,
 		baseURL:    baseURL,
 		timeout:    timeout,
@@ -166,7 +166,7 @@ func NewClient(config Config) (*Client, error) {
 }
 
 // UploadFile uploads a file to D3 storage
-func (c *Client) UploadFile(options UploadFileOptions) (*UploadResponse, error) {
+func (c *Dragdropdo) UploadFile(options UploadFileOptions) (*UploadResponse, error) {
 	if options.FileName == "" {
 		return nil, errors.New("file_name is required")
 	}
@@ -348,7 +348,7 @@ func (c *Client) UploadFile(options UploadFileOptions) (*UploadResponse, error) 
 }
 
 // CheckSupportedOperation checks if an operation is supported for a file extension
-func (c *Client) CheckSupportedOperation(options SupportedOperationOptions) (*SupportedOperationResponse, error) {
+func (c *Dragdropdo) CheckSupportedOperation(options SupportedOperationOptions) (*SupportedOperationResponse, error) {
 	if options.Ext == "" {
 		return nil, errors.New("extension (ext) is required")
 	}
@@ -380,7 +380,7 @@ func (c *Client) CheckSupportedOperation(options SupportedOperationOptions) (*Su
 }
 
 // CreateOperation creates a file operation
-func (c *Client) CreateOperation(options OperationOptions) (*OperationResponse, error) {
+func (c *Dragdropdo) CreateOperation(options OperationOptions) (*OperationResponse, error) {
 	if options.Action == "" {
 		return nil, errors.New("action is required")
 	}
@@ -425,7 +425,7 @@ func (c *Client) CreateOperation(options OperationOptions) (*OperationResponse, 
 // Convenience methods
 
 // Convert converts files to a different format
-func (c *Client) Convert(fileKeys []string, convertTo string, notes map[string]string) (*OperationResponse, error) {
+func (c *Dragdropdo) Convert(fileKeys []string, convertTo string, notes map[string]string) (*OperationResponse, error) {
 	return c.CreateOperation(OperationOptions{
 		Action:   "convert",
 		FileKeys: fileKeys,
@@ -437,7 +437,7 @@ func (c *Client) Convert(fileKeys []string, convertTo string, notes map[string]s
 }
 
 // Compress compresses files
-func (c *Client) Compress(fileKeys []string, compressionValue string, notes map[string]string) (*OperationResponse, error) {
+func (c *Dragdropdo) Compress(fileKeys []string, compressionValue string, notes map[string]string) (*OperationResponse, error) {
 	if compressionValue == "" {
 		compressionValue = "recommended"
 	}
@@ -452,7 +452,7 @@ func (c *Client) Compress(fileKeys []string, compressionValue string, notes map[
 }
 
 // Merge merges multiple files
-func (c *Client) Merge(fileKeys []string, notes map[string]string) (*OperationResponse, error) {
+func (c *Dragdropdo) Merge(fileKeys []string, notes map[string]string) (*OperationResponse, error) {
 	return c.CreateOperation(OperationOptions{
 		Action:   "merge",
 		FileKeys: fileKeys,
@@ -461,7 +461,7 @@ func (c *Client) Merge(fileKeys []string, notes map[string]string) (*OperationRe
 }
 
 // Zip creates a ZIP archive from files
-func (c *Client) Zip(fileKeys []string, notes map[string]string) (*OperationResponse, error) {
+func (c *Dragdropdo) Zip(fileKeys []string, notes map[string]string) (*OperationResponse, error) {
 	return c.CreateOperation(OperationOptions{
 		Action:   "zip",
 		FileKeys: fileKeys,
@@ -470,7 +470,7 @@ func (c *Client) Zip(fileKeys []string, notes map[string]string) (*OperationResp
 }
 
 // Share shares files (generates shareable links)
-func (c *Client) Share(fileKeys []string, notes map[string]string) (*OperationResponse, error) {
+func (c *Dragdropdo) Share(fileKeys []string, notes map[string]string) (*OperationResponse, error) {
 	return c.CreateOperation(OperationOptions{
 		Action:   "share",
 		FileKeys: fileKeys,
@@ -479,7 +479,7 @@ func (c *Client) Share(fileKeys []string, notes map[string]string) (*OperationRe
 }
 
 // LockPdf locks PDF with password
-func (c *Client) LockPdf(fileKeys []string, password string, notes map[string]string) (*OperationResponse, error) {
+func (c *Dragdropdo) LockPdf(fileKeys []string, password string, notes map[string]string) (*OperationResponse, error) {
 	return c.CreateOperation(OperationOptions{
 		Action:   "lock",
 		FileKeys: fileKeys,
@@ -491,7 +491,7 @@ func (c *Client) LockPdf(fileKeys []string, password string, notes map[string]st
 }
 
 // UnlockPdf unlocks PDF with password
-func (c *Client) UnlockPdf(fileKeys []string, password string, notes map[string]string) (*OperationResponse, error) {
+func (c *Dragdropdo) UnlockPdf(fileKeys []string, password string, notes map[string]string) (*OperationResponse, error) {
 	return c.CreateOperation(OperationOptions{
 		Action:   "unlock",
 		FileKeys: fileKeys,
@@ -503,7 +503,7 @@ func (c *Client) UnlockPdf(fileKeys []string, password string, notes map[string]
 }
 
 // ResetPdfPassword resets PDF password
-func (c *Client) ResetPdfPassword(fileKeys []string, oldPassword, newPassword string, notes map[string]string) (*OperationResponse, error) {
+func (c *Dragdropdo) ResetPdfPassword(fileKeys []string, oldPassword, newPassword string, notes map[string]string) (*OperationResponse, error) {
 	return c.CreateOperation(OperationOptions{
 		Action:   "reset_password",
 		FileKeys: fileKeys,
@@ -516,7 +516,7 @@ func (c *Client) ResetPdfPassword(fileKeys []string, oldPassword, newPassword st
 }
 
 // GetStatus gets operation status
-func (c *Client) GetStatus(options StatusOptions) (*StatusResponse, error) {
+func (c *Dragdropdo) GetStatus(options StatusOptions) (*StatusResponse, error) {
 	if options.MainTaskID == "" {
 		return nil, errors.New("main_task_id is required")
 	}
@@ -568,7 +568,7 @@ func (c *Client) GetStatus(options StatusOptions) (*StatusResponse, error) {
 }
 
 // PollStatus polls operation status until completion or failure
-func (c *Client) PollStatus(options PollStatusOptions) (*StatusResponse, error) {
+func (c *Dragdropdo) PollStatus(options PollStatusOptions) (*StatusResponse, error) {
 	interval := options.Interval
 	if interval == 0 {
 		interval = 2 * time.Second
@@ -608,7 +608,7 @@ func (c *Client) PollStatus(options PollStatusOptions) (*StatusResponse, error) 
 }
 
 // getMimeType gets MIME type from file extension
-func (c *Client) getMimeType(ext string) string {
+func (c *Dragdropdo) getMimeType(ext string) string {
 	mimeTypes := map[string]string{
 		".pdf":  "application/pdf",
 		".jpg":  "image/jpeg",

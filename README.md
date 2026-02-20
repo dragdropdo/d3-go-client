@@ -1,4 +1,4 @@
-# D3 Go Client
+# DragDropDo Go SDK
 
 Official Go client library for the D3 Business API. This library provides a simple and elegant interface for developers to interact with D3's file processing services.
 
@@ -14,7 +14,7 @@ Official Go client library for the D3 Business API. This library provides a simp
 ## Installation
 
 ```bash
-go get github.com/d3/d3-go-client
+go get github.com/d3/dragdropdo-sdk-go
 ```
 
 ## Quick Start
@@ -25,12 +25,12 @@ package main
 import (
     "fmt"
     "time"
-    "github.com/d3/d3-go-client"
+    "github.com/d3/dragdropdo-sdk-go"
 )
 
 func main() {
     // Initialize the client
-    client, err := d3.NewClient(d3.Config{
+    client, err := d3.NewDragdropdo(d3.Config{
         APIKey:  "your-api-key-here",
         BaseURL: "https://api.d3.com", // Optional, defaults to https://api.d3.com
         Timeout: 30 * time.Second,     // Optional, defaults to 30s
@@ -98,7 +98,7 @@ func main() {
 
 ### Initialization
 
-#### `NewClient(config Config) (*Client, error)`
+#### `NewDragdropdo(config Config) (*Dragdropdo, error)`
 
 Create a new D3 client instance.
 
@@ -112,7 +112,7 @@ Create a new D3 client instance.
 **Example:**
 
 ```go
-client, err := d3.NewClient(d3.Config{
+client, err := d3.NewDragdropdo(d3.Config{
     APIKey:  "your-api-key",
     BaseURL: "https://api.d3.com",
     Timeout: 30 * time.Second,
@@ -360,12 +360,12 @@ import (
     "fmt"
     "os"
     "time"
-    "github.com/d3/d3-go-client"
+    "github.com/d3/dragdropdo-sdk-go"
 )
 
 func main() {
     // Initialize client
-    client, err := d3.NewClient(d3.Config{
+    client, err := d3.NewDragdropdo(d3.Config{
         APIKey:  os.Getenv("D3_API_KEY"),
         BaseURL: "https://api.d3.com",
     })
@@ -460,7 +460,7 @@ func main() {
 The client provides several error types for better error handling:
 
 ```go
-import "github.com/d3/d3-go-client"
+import "github.com/d3/dragdropdo-sdk-go"
 
 result, err := client.UploadFile(...)
 if err != nil {

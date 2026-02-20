@@ -86,7 +86,7 @@ func TestClient_UploadFile_MultipartFlow(t *testing.T) {
 	defer apiServer.Close()
 
 	// Create client with mock base URL
-	client, err := NewClient(Config{
+	client, err := NewDragdropdo(Config{
 		APIKey:  "test-key",
 		BaseURL: apiServer.URL,
 		Timeout: 30 * time.Second,
@@ -188,7 +188,7 @@ func TestClient_CreateOperation_AndPollStatus(t *testing.T) {
 	}))
 	defer server.Close()
 
-	client, err := NewClient(Config{
+	client, err := NewDragdropdo(Config{
 		APIKey:  "test-key",
 		BaseURL: server.URL,
 		Timeout: 30 * time.Second,
@@ -229,9 +229,9 @@ func TestClient_CreateOperation_AndPollStatus(t *testing.T) {
 	}
 }
 
-func TestClient_NewClient_Validation(t *testing.T) {
+func TestClient_NewDragdropdo_Validation(t *testing.T) {
 	// Test missing API key
-	_, err := NewClient(Config{
+	_, err := NewDragdropdo(Config{
 		APIKey: "",
 	})
 	if err == nil {
@@ -239,7 +239,7 @@ func TestClient_NewClient_Validation(t *testing.T) {
 	}
 
 	// Test valid client
-	client, err := NewClient(Config{
+	client, err := NewDragdropdo(Config{
 		APIKey:  "test-key",
 		BaseURL: "https://api-dev.dragdropdo.com",
 	})
@@ -280,7 +280,7 @@ func TestClient_CheckSupportedOperation(t *testing.T) {
 	}))
 	defer server.Close()
 
-	client, err := NewClient(Config{
+	client, err := NewDragdropdo(Config{
 		APIKey:  "test-key",
 		BaseURL: server.URL,
 	})
