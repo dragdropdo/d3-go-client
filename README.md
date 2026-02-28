@@ -14,7 +14,7 @@ Official Go client library for the D3 Business API. This library provides a simp
 ## Installation
 
 ```bash
-go get github.com/d3/dragdropdo-sdk-go
+go get github.com/dragdropdo/dragdropdo-sdk-go
 ```
 
 ## Quick Start
@@ -25,7 +25,7 @@ package main
 import (
     "fmt"
     "time"
-    "github.com/d3/dragdropdo-sdk-go"
+    "github.com/dragdropdo/dragdropdo-sdk-go"
 )
 
 func main() {
@@ -360,7 +360,7 @@ import (
     "fmt"
     "os"
     "time"
-    "github.com/d3/dragdropdo-sdk-go"
+    "github.com/dragdropdo/dragdropdo-sdk-go"
 )
 
 func main() {
@@ -460,7 +460,7 @@ func main() {
 The client provides several error types for better error handling:
 
 ```go
-import "github.com/d3/dragdropdo-sdk-go"
+import "github.com/dragdropdo/dragdropdo-sdk-go"
 
 result, err := client.UploadFile(...)
 if err != nil {

@@ -1,4 +1,4 @@
-module github.com/d3/dragdropdo-sdk-go
+module github.com/dragdropdo/dragdropdo-sdk-go
 
 go 1.19
 
