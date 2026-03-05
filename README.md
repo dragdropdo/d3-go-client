@@ -32,8 +32,8 @@ func main() {
     // Initialize the client
     client, err := d3.NewDragdropdo(d3.Config{
         APIKey:  "your-api-key-here",
-        BaseURL: "https://api.d3.com", // Optional, defaults to https://api.d3.com
-        Timeout: 30 * time.Second,     // Optional, defaults to 30s
+        BaseURL: "https://api.dragdropdo.com", 
+        Timeout: 30 * time.Second,    
     })
     if err != nil {
         panic(err)
